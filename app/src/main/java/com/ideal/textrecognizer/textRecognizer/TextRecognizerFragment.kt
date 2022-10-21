@@ -1,7 +1,6 @@
 package com.ideal.textrecognizer.textRecognizer
 
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
@@ -22,9 +21,6 @@ class TextRecognizerFragment(private val uri: Uri?) :
         const val UriKey = "uri"
     }
 
-    private val speechRecognizer: SpeechRecognizer by lazy {
-        SpeechRecognizer.createSpeechRecognizer(requireContext())
-    }
 
     val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
@@ -51,17 +47,7 @@ class TextRecognizerFragment(private val uri: Uri?) :
         inputImage?.let {
             recognizer.process(it).apply {
                 addOnSuccessListener { text ->
-                    if (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            SpeechRecognizer.isOnDeviceRecognitionAvailable(
-                                requireContext()
-                            ) && SpeechRecognizer.isRecognitionAvailable(
-                                requireContext()
-                            )
-                        } else {
-                         Toast.makeText()
-                        }
-                    )
-                        speechRecognizer.
+                    Toast.makeText(requireContext(), text.text, Toast.LENGTH_LONG).show()
                 }
                 addOnFailureListener { error ->
                     Toast.makeText(requireContext(), error.localizedMessage, Toast.LENGTH_LONG)

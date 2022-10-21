@@ -1,0 +1,2 @@
+# TextRecognizer
+# Задание для КНУ
